@@ -3,7 +3,7 @@ import os
 from selene.support.shared import browser
 from selene import have
 
-
+# positive test
 def test_filled_form():
     browser.open('/automation-practice-form')
     # username
@@ -49,8 +49,11 @@ def test_filled_form():
     ))
 
 
+# negative test
 def test_unfilled_form():
     browser.open('/automation-practice-form')
     browser.element('#userForm').should(have.no.css_class('was-validated'))
     browser.element('#submit').click()
     browser.element('#userForm').should(have.css_class('was-validated'))
+
+
