@@ -32,7 +32,7 @@ def test_filled_form():
     browser.element('#react-select-4-input').type('Noida').press_enter()
 
     # submitting form
-    browser.element('#submit').click()
+    browser.element('#submit').press_enter()
     # result
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
     browser.element('.table').should(have.text(
@@ -53,7 +53,7 @@ def test_filled_form():
 def test_unfilled_form():
     browser.open('/automation-practice-form')
     browser.element('#userForm').should(have.no.css_class('was-validated'))
-    browser.element('#submit').click()
+    browser.element('#submit').press_enter()
     browser.element('#userForm').should(have.css_class('was-validated'))
 
 
