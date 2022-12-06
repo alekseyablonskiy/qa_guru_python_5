@@ -1,18 +1,44 @@
 from selene.support.shared import browser
-from selene import be, have
+from selene import have
 
 
 def test_filled_form():
     browser.open('https://demoqa.com/automation-practice-form')
-    browser.element('#firstName').should(be.blank).set_value('Aleksey')
-    browser.element('#lastName').should(be.blank).set_value('Yablonskiy')
-    browser.element('#userEmail').should(be.blank).set_value('alekseyablonskiy@gmail.com')
+    #user name
+    browser.element('#firstName').type('Aleksey')
+    browser.element('#lastName').type('Yablonskiy')
+    #personal data
+    browser.element('#userEmail').type('alekseyablonskiy@gmail.com')
     browser.element('[for=gender-radio-1]').click()
-    browser.element('#userNumber').should(be.blank).set_value('123456789012345')
-    browser.element('#subjectsInput').should(be.blank).set_value('About my friends')
-    browser.element('[for=hobbies-checkbox-3]').click()
+    browser.element('#userNumber').type('123456789012345')
+    #user birthday
+    browser.element('#dateOfBirthInput').click()
+    browser.element('.react-datepicker__month-select').click()
+    browser.element('[value="10"]').click()
+    browser.element('.react-datepicker__year-select').click()
+    browser.element('[value="1996"]').click()
+    browser.element('.react-datepicker__day--027').click()
+    #subject and hobbies
+    browser.element('#subjectsInput').type('English').press_enter()
+    # User address
+    browser.element('#currentAddress').type("Minsk")
+    browser.element('#react-select-3-input').type('NCR').press_enter()
+    browser.element('#react-select-4-input').type('Noida').press_enter()
+
+    #submitting form
     browser.element('#submit').click()
+    #result
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
+    browser.element('.table').should(have.text(
+        'Aleksey Yablonskiy' and
+        'alekseyablosnkiy@gmail.com' and
+        'Male' and
+        '123456789012345' and
+        '27 October, 1996' and
+        'English' and
+        'Minsk' and
+        'NCR Noida'
+    ))
 
 
 def test_unfilled_form():
