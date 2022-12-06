@@ -5,7 +5,7 @@ from selene import have
 
 
 def test_filled_form():
-    browser.open('https://demoqa.com/automation-practice-form')
+    browser.open('/automation-practice-form')
     # username
     browser.element('#firstName').type('Aleksey')
     browser.element('#lastName').type('Yablonskiy')
@@ -50,7 +50,7 @@ def test_filled_form():
 
 
 def test_unfilled_form():
-    browser.open('https://demoqa.com/automation-practice-form')
+    browser.open('/automation-practice-form')
     browser.element('#userForm').should(have.no.css_class('was-validated'))
     browser.element('#submit').click()
     browser.element('#userForm').should(have.css_class('was-validated'))
